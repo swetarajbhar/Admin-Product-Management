@@ -47,6 +47,7 @@ const verifyToken = (req: Request, res: Response, next: NextFunction): void => {
             if (verifiedData) {
               let userDetails = await AdminUserModel.findOne({
                 email: verifiedData.email,
+                xAccessToken: token[1],
               });
 
               if (userDetails) {

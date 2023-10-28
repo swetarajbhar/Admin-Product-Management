@@ -11,9 +11,11 @@ interface IProduct extends Document {
   sku: string;
   productName: string;
   price: number;
-  images: IProductImage[]; // Define the type as an array of objects
+  images?: IProductImage[]; // Define the type as an array of objects
   created_by: string;
-  updated_by: string;
+  created_name: string;
+  updated_by?: string;
+  updated_name?: string;
   created_at: Date;
   updated_at: Date;
 }
@@ -40,6 +42,7 @@ const ProductSchema: Schema<IProduct> = new Schema<IProduct>(
     },
     productName: {
       type: String,
+      unique: true,
       required: true,
     },
     price: {
@@ -51,7 +54,13 @@ const ProductSchema: Schema<IProduct> = new Schema<IProduct>(
     created_by: {
       type: String,
     },
+    created_name: {
+      type: String,
+    },
     updated_by: {
+      type: String,
+    },
+    updated_name: {
       type: String,
     },
     created_at: {
@@ -75,4 +84,4 @@ const ProductModel: Model<IProduct> = mongoose.model<IProduct>(
   "product"
 );
 
-export { ProductModel };
+export { ProductModel, IProductImage, IProduct };
